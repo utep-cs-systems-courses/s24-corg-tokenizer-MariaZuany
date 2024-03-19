@@ -36,16 +36,37 @@ char *token_start(char *str){
 
 /* Returns a pointer terminator char following *token */
 
-char *token_terminator(char *token);
+char *token_terminator(char *token){
+  while (*token && non_space_char(*token){
+      token++;
+  }
+    return token;
+}
 
 
 
 /* Counts the number of tokens in the string argument. */
 
-int count_tokens(char *str);
+int count_tokens(char *str){
+  int count = 0;
+  bool isToken = false;
 
+  while (*str){
+    if (space_char(*str)){
+      isToken =false;
+    } else if (!isToken){
+      count++;
+      isToken = true;
+    }
+    str++;
+  }
+  if (isToken){
+    count++;
+  }
+  return count;
+}
 
-
+  
 /* Returns a fresly allocated new zero-terminated string 
 
    containing <len> chars from <inStr> */
