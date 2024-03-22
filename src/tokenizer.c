@@ -71,7 +71,26 @@ int count_tokens(char *str){
 
    containing <len> chars from <inStr> */
 
-char *copy_str(char *inStr, short len);
+  char *copy_str(char *inStr, short len){
+
+    char *resultString = (*char)malloc(len+); // allocating memory for new string
+
+    //check if the memory allocation was cerated succesfully
+    if (resultString == NULL){
+      return NULL;
+    }
+
+    //Copy the characters from inStr to resultString
+    for (short i = 0; i < len && inStr[i] != '\0'; i++){
+      resultString[i] = inStr[i];
+    }
+    
+    //Add the termination
+    resultString[i] = '\0';
+
+    return resultString;
+    
+  }
 
 
 
@@ -90,23 +109,81 @@ char *copy_str(char *inStr, short len);
 
 */
 
-char **tokenize(char* str);
+  char **tokenize(char* str){
+    
+    //use the count_tokens to determine how many tokens has the string
+    int tokensNum = count_tokens(str);
+
+    //allocate memory
+    char **tokens = (char**)malloc((tokensNum + 1) * sizeof(char*));
+
+    if (tokens == NULL){
+      return NULL;
+    }
+
+    char *tokenStart = str;
+
+    for (int i = 0; i < tokensNum; i++){
+      tokenStart = token_start(tokenStart);
+
+      //no more tokens
+      if (tokenStart == NULL){
+	break;
+      }
+
+      char *endToken = token_terminator(tokenStart);
+
+      short lenToken = endToken - tokenStart;
+
+      tokens[i] = copy_str(tokenStar, lenToken); // token into a new str
+
+      if (tokens[i] == NULL{
+
+	  for (int j = 0; j < i; j++){
+
+	    free(tokens[j]);
+	  }
+
+	  free(tokens);
+	  return NULL;
+      }
+	tokenStart = endToken;
+    }
+      tokens[i] = NULL;
+
+      return tokens;
+  }
 
 
 
 /* Prints all tokens. */
 
-void print_tokens(char **tokens);
+    void print_tokens(char **tokens){
+      if (tokens == NULL){
+	printf("No tokens\n");
+	return;
+      }
+
+      for (int i = 0; tokens[i] != NULL; i++){
+	printf("Token %d: %s\n", i +1 tokens[i]);
+      }
+    }
 
 
 
 /* Frees all tokens and the vector containing themx. */
 
-void free_tokens(char **tokens);
+    void free_tokens(char **tokens){
+      if (tokens ==NULL){
+	return;
+      }
 
-
+      for(int i = 0;tokens[i] != NULL; i++){
+	free(tokens[i];
+      }
+	  free(tokens);
+    }
 
 #endif
-
 
    
