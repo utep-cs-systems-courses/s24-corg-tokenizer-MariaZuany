@@ -48,7 +48,6 @@ void add_history(List *list, char *str){
     curr = curr->next;//move the pointer curr to the next node
   }
   curr->next = new_node;
-  
 }
 
 /* Retrieve the string stored in the node where Item->id == id.
