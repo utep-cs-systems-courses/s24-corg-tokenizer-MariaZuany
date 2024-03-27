@@ -27,14 +27,27 @@ List* init_history(){
    char* str - the string to store
 */
 void add_history(List *list, char *str){
-  Node *new_node = (Node*)malloc(sizeof(Node));//create new node
+  Item *new_node = (Item*)malloc(sizeof(Item));//create new node
 
   if(new_node == NULL){
     printf("Error allocating memory for a new node\n");
-    return NULL;
+    return;
   }
 
   new_node->next=NULL;
+  new_node->id = 0; //index 0
+  new_node->str = str;
+
+  if (list->root==NULL){//if the head list is empty
+    list->root = new_node;//create a node
+  }
+
+  //traverse the list
+  Item *curr = list->root; //current node is the head
+  while (curr->next != NULL){//if the next of the current is not null we move
+    curr = curr->next;//move the pointer curr to the next node
+  }
+  curr->next = new_node;
   
 }
 
