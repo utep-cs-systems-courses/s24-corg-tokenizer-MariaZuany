@@ -77,6 +77,18 @@ void print_history(List *list){
 }
 
 /*Free the history list and the strings it references. */
-void free_history(List *list);
+void free_history(List *list){
+  Item *curr = list->root;
+  Item *next;
+
+  //traverse current list
+  while(curr != NULL){
+    next = curr->next;
+    free(curr->str);//fee data
+    free(curr);//free node
+    curr = next;
+  }
+  free(list);
+}
 
 #endif
