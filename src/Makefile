@@ -6,7 +6,7 @@ all: tokenizer
 
 # Include file dependencies
 history.o: history.h
-tokenizer.o:tokenizer.h
+tokenizer.o: tokenizer.h
 
 #build tokenizer executable
 tokenizer: history.o tokenizer.o uimain.o
@@ -21,3 +21,4 @@ clean:
 	rm -f *.o tokenizer
 run:
 	./tokenizer
+
