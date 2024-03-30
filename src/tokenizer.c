@@ -10,7 +10,7 @@
    Zero terminators are not printable (therefore false) */
 
 int space_char(char c){
-  return (c == ' ' | c == '\t')
+  return (c == ' ' || c == '\t');
 }
 
 /* Return true (non-zero) if c is a non-whitespace 
@@ -20,7 +20,7 @@ int space_char(char c){
    Zero terminators are not printable (therefore false) */
 
 int non_space_char(char c){
-  return !space_char(c)
+  return c != '\0' && !space_char(c);
 }
 
 /* Returns a pointer to the first character of the next 
@@ -142,7 +142,7 @@ int count_tokens(char *str){
 
       tokens[i] = copy_str(tokenStar, lenToken); // token into a new str
 
-      if (tokens[i] == NULL{
+      if (tokens[i] == NULL){
 
 	  for (int j = 0; j < i; j++){
 
