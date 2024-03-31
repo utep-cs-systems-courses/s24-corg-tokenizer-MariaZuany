@@ -10,9 +10,9 @@ int main(){
   List *history =init_history();
   puts("Hi :)");
 
-  while (True){
+  while (1){
 
-    fputs("Welcome!   Input 'f' to see the full history, 's' to enter a sentence, 'vs' to view a specific history, or 'e' to Exit\n>", stdout);
+    fputs("Welcome!   Input 'f' to see the full history, 's' to enter a sentence, 'v' to view a specific history, or 'e' to Exit\n>", stdout);
     fflush(stdout);
 
     int a = getchar();
@@ -26,7 +26,7 @@ int main(){
 	fflush(stdout);
 	//establish the max length for the input sentence
 	char sen[100];
-	fgets(sen, sizeoff(sen),stdin);
+	fgets(sen, sizeof(sen),stdin);
 	char **tokens = tokenize(sen);
 
 	print_tokens(tokens);
@@ -40,7 +40,7 @@ int main(){
 	print_history(history);
 	break;
 	
-      case 'vs':
+      case 'v':
 
 	fputs("Enter the id of the history: ", stdout);
 	fflush(stdout);
