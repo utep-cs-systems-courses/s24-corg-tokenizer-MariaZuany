@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #define _TOKENIZER_
 
 
@@ -42,7 +43,7 @@ char *token_start(char *str){
 /* Returns a pointer terminator char following *token */
 
 char *token_terminator(char *token){
-  while (*token && non_space_char(*token){
+  while (*token && non_space_char(*token)){
       token++;
   }
     return token;
@@ -78,7 +79,7 @@ int count_tokens(char *str){
 
   char *copy_str(char *inStr, short len){
 
-    char *resultString = (*char)malloc(len+); // allocating memory for new string
+    char *resultString = (char *)malloc((len + 1)* sizeof(char *)); // allocating memory for new string
 
     //check if the memory allocation was cerated succesfully
     if (resultString == NULL){
@@ -86,12 +87,12 @@ int count_tokens(char *str){
     }
 
     //Copy the characters from inStr to resultString
-    for (short i = 0; i < len && inStr[i] != '\0'; i++){
+    for (int i = 0; i < len; i++){
       resultString[i] = inStr[i];
     }
     
     //Add the termination
-    resultString[i] = '\0';
+    resultString[len] = '\0';
 
     return resultString;
     
@@ -126,37 +127,24 @@ int count_tokens(char *str){
       return NULL;
     }
 
-    char *tokenStart = str;
+    char *token_Start = token_start(str);
+    char *stop;
 
     for (int i = 0; i < tokensNum; i++){
-      tokenStart = token_start(tokenStart);
+      stop = token_terminator(token_Start);
 
       //no more tokens
-      if (tokenStart == NULL){
+      if (token_Start == NULL){
 	break;
       }
 
-      char *endToken = token_terminator(tokenStart);
+      *(tokens+i)= copy_str(token_Start, (stop - token_Start));
+      token_Start = token_start(stop);
 
-      short lenToken = endToken - tokenStart;
-
-      tokens[i] = copy_str(tokenStar, lenToken); // token into a new str
-
-      if (tokens[i] == NULL){
-
-	  for (int j = 0; j < i; j++){
-
-	    free(tokens[j]);
-	  }
-
-	  free(tokens);
-	  return NULL;
-      }
-	tokenStart = endToken;
     }
-      tokens[i] = NULL;
-
-      return tokens;
+    *(tokens + tokensNum)= NULL;
+    return tokens;
+      
   }
 
 
@@ -170,7 +158,7 @@ int count_tokens(char *str){
       }
 
       for (int i = 0; tokens[i] != NULL; i++){
-	printf("Token %d: %s\n", i +1 tokens[i]);
+	printf("Token: %s \n", tokens[i]);
       }
     }
 
@@ -184,11 +172,9 @@ int count_tokens(char *str){
       }
 
       for(int i = 0;tokens[i] != NULL; i++){
-	free(tokens[i];
+	free(tokens[i]);
       }
 	  free(tokens);
     }
-
-#endif
 
    

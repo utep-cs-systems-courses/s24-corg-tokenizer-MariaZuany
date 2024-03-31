@@ -1,6 +1,9 @@
 #ifndef _HISTORY_
-
 #define _HISTORY_
+#include <stdio.h>
+#include <stdlib.h>
+#include "history.h"
+#include "tokenizer.h"
 
 
 
