@@ -79,7 +79,7 @@ int count_tokens(char *str){
 
   char *copy_str(char *inStr, short len){
 
-    char *resultString = (char *)malloc((len + 1)* sizeof(char *)); // allocating memory for new string
+    char *resultString = malloc((len + 1)* sizeof(char)); // allocating memory for new string
 
     //check if the memory allocation was cerated succesfully
     if (resultString == NULL){
@@ -121,7 +121,7 @@ int count_tokens(char *str){
     int tokensNum = count_tokens(str);
 
     //allocate memory
-    char **tokens = (char**)malloc((tokensNum + 1) * sizeof(char*));
+    char **tokens = malloc((tokensNum + 1) * sizeof(char*));
 
     if (tokens == NULL){
       return NULL;
