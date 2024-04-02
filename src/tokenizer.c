@@ -55,20 +55,15 @@ char *token_terminator(char *token){
 
 int count_tokens(char *str){
   int count = 0;
-  bool isToken = false;
+  bool isToken = true;
 
-  while (*str){
-    if (space_char(*str)){
-      isToken =false;
-    } else if (!isToken){
+  do{
+    if (str== token_start(str)){
       count++;
-      isToken = true;
     }
-    str++;
-  }
-  if (isToken){
-    count++;
-  }
+    str = token_terminator(str);
+    isToken = false;
+  } while (isToken);
   return count;
 }
 
