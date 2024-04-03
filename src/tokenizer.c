@@ -56,13 +56,12 @@ char *token_terminator(char *token){
 int count_tokens(char *str){
   int count = 0;
 
-  while (*str != '\0'){
-    if (str == token_start(str)){
+  do{
+    if(str== token_start(str)){
       count++;
     }
-    str = token_terminator(str);
-    
-  }
+  }while(str = token_terminator(str));
+  
   return count;
 }
 
