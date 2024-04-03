@@ -46,7 +46,7 @@ char *token_terminator(char *token){
   while (*token && non_space_char(*token)){
       token++;
   }
-    return token;
+  return *token? token:NULL;
 }
 
 
