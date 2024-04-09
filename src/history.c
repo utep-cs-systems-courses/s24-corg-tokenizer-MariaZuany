@@ -48,7 +48,7 @@ void add_history(List *list, char *str){
     new_node->id = head -> id+ 1;
 
   }
-  int lenght = 0;
+  int length = 0;
 
   while (*str != '\0'){
     length++;
