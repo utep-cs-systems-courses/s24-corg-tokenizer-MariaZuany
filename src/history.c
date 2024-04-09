@@ -1,30 +1,7 @@
-#ifndef _HISTORY_
-#define _HISTORY_
 #include <stdio.h>
 #include <stdlib.h>
 #include "history.h"
 #include "tokenizer.h"
-
-
-
-typedef struct s_Item {
-
-  int id;
-
-  char *str;
-
-  struct s_Item *next;
-
-} Item;
-
-
-
-typedef struct s_List {
-
-  struct s_Item *root;
-
-} List;
-
 
 
 /* Initialize the linked list to keep the history. */
@@ -33,17 +10,9 @@ List* init_history(){
 
   List *new_list =(List*)malloc(sizeof(List));//memory allocation
 
-  if (new_list != NULL){
+  new_list->root = NULL;
 
-    new_list->root = NULL; //Empty list
-
-    return new_list;
-
-  }
-
-  printf("Error allocating memory for new list\n");
-
-  return NULL;
+  return new_list;
 
 }
 
@@ -60,46 +29,35 @@ List* init_history(){
 void add_history(List *list, char *str){
 
   Item *new_node = (Item*)malloc(sizeof(Item));//create new node
+  Item *head = list->root;
+  new_node-> next = NULL;
 
 
 
-  if(new_node == NULL){
+  if(head == NULL){
 
-    printf("Error allocating memory for a new node\n");
+    list->root = new_node;
+    new_node->id = 0;
 
-    return;
+  }else{
 
-  }
-
-
-
-  new_node->next=NULL;
-
-  new_node->id = 0; //index 0
-
-  new_node->str = str;
-
-
-
-  if (list->root==NULL){//if the head list is empty
-
-    list->root = new_node;//create a node
+    while(head->next !=NULL){
+      head = head -> next;
+    }
+    head -> next = new_node;
+    new_node->id = head -> id+ 1;
 
   }
+  int lenght = 0;
 
-
-
-  //traverse the list
-
-  Item *curr = list->root; //current node is the head
-
-  while (curr->next != NULL){//if the next of the current is not null we move
-
-    curr = curr->next;//move the pointer curr to the next node
-
+  while (*str != '\0'){
+    length++;
+    str++;
   }
 
-  curr->next = new_node;
+  str = str - length;
+  char *hist = copy_str(str,length);
+  new_node -> str = hist;
 
 }
 
@@ -115,6 +73,9 @@ char *get_history(List *list, int id){
 
   Item *curr = list->root;//beginning of the list
 
+  if (head ==NULL){
+    return "No history";
+  }
 
 
   while (curr != NULL){
@@ -131,7 +92,7 @@ char *get_history(List *list, int id){
 
   //No nodes with the indicated ID
 
-  return NULL;
+  return "Error :(";
 
 }
 
@@ -161,24 +122,17 @@ void print_history(List *list){
 
 void free_history(List *list){
 
-  Item *curr = list->root;
-
-  Item *next;
-
-
+  Item *curr;
 
   //traverse current list
 
-  while(curr != NULL){
-
-    next = curr->next;
+  while(list->root != NULL){
+    curr = list -> root;
+    list ->root = list->root->next;
 
     free(curr->str);//fee data
 
     free(curr);//free node
-
-    curr = next;
-
   }
 
   free(list);

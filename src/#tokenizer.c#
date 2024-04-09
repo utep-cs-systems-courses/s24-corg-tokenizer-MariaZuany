@@ -134,7 +134,6 @@ int count_tokens(char *str){
 
       *(tokens+i)= copy_str(token_Start, (stop - token_Start));
       token_Start = token_start(stop);
-
     }
     *(tokens + tokensNum)= NULL;
     return tokens;

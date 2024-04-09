@@ -1,4 +1,4 @@
-# Compiler flags. -g for debug, -O3 for optimization
+Compiler flags. -g for debug, -O3 for optimization
 
 CFLAGS=-g -O3
 
