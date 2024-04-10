@@ -73,7 +73,7 @@ char *get_history(List *list, int id){
 
   Item *curr = list->root;//beginning of the list
 
-  if (head ==NULL){
+  if (curr ==NULL){
     return "No history";
   }
 
@@ -138,7 +138,3 @@ void free_history(List *list){
   free(list);
 
 }
-
-
-
-#endif
