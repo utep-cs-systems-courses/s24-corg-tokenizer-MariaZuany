@@ -31,11 +31,11 @@ int non_space_char(char c){
    str does not contain any tokens. */
 
 char *token_start(char *str){
-  while (*str && space_char(*str)){
+  while (*str != '\0' && space_char(*str)){
     str++;
   }
 
-  return *str? str:NULL;
+  return *str!= '\0'? str:NULL;
 }
 
 
@@ -43,10 +43,10 @@ char *token_start(char *str){
 /* Returns a pointer terminator char following *token */
 
 char *token_terminator(char *token){
-  while (*token && non_space_char(*token)){
+  while (*token != '\0' && non_space_char(*token)){
       token++;
   }
-  return *token? token:NULL;
+  return token;
 }
 
 
@@ -54,13 +54,14 @@ char *token_terminator(char *token){
 /* Counts the number of tokens in the string argument. */
 
 int count_tokens(char *str){
+  char *token = token_start(str);
   int count = 0;
 
   do{
-    if(str== token_start(str)){
-      count++;
-    }
-  }while(str = token_terminator(str));
+    count++;
+    token = token_terminator(token);//end of current
+    token = token_start(token);//pointer to next token
+  }while(token != NULL);
   
   return count;
 }
@@ -109,8 +110,6 @@ int count_tokens(char *str){
 */
 
   char **tokenize(char* str){
-
-    printf("test");
     //use the count_tokens to determine how many tokens has the string
     int tokensNum = count_tokens(str);
     
@@ -121,19 +120,19 @@ int count_tokens(char *str){
       return NULL;
     }
 
-    char *token_Start = token_start(str);
+    char *tokenStart = token_start(str);
     char *stop;
 
     for (int i = 0; i < tokensNum; i++){
-      stop = token_terminator(token_Start);
+      stop = token_terminator(tokenStart);
 
       //no more tokens
       if (token_Start == NULL){
 	break;
       }
 
-      *(tokens+i)= copy_str(token_Start, (stop - token_Start));
-      token_Start = token_start(stop);
+      *(tokens+i)= copy_str(tokenStart, (stop - tokenStart));
+      tokenStart = token_start(stop);
 
     }
     *(tokens + tokensNum)= NULL;
