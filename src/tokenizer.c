@@ -127,7 +127,7 @@ int count_tokens(char *str){
       stop = token_terminator(tokenStart);
 
       //no more tokens
-      if (token_Start == NULL){
+      if (tokenStart == NULL){
 	break;
       }
 
