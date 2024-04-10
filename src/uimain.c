@@ -55,6 +55,9 @@ int main(){
 	free_history(history);
 	break;
     }//switch
+    if (a == 'e'){
+      break;
+    }
   }//while
   return 0;
 }//main
